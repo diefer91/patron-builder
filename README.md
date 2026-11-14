@@ -17,3 +17,109 @@ También hay tres configuraciones ya definidas: económico, gama media y gama al
 Primero se escogen las características en el configurador. Después, `confirmarCarro()` crea el objeto `Carro` con esos valores. Así se separa la configuración del carro de la clase que representa el carro.
 
 Para probar el proyecto, se puede abrir en IntelliJ IDEA y ejecutar la clase `Main`.
+
+## Diagrama de clase
+
+```mermaid
+classDiagram
+
+    class Motor {
+        <<enumeration>>
+        V6
+        V8
+        V12
+    }
+
+    class Pintura {
+        <<enumeration>>
+        ROJO_ULTRA
+        AZUL_SIMPLE
+        NEGRO_PERLADO
+    }
+
+    class TipoCarroceria {
+        <<enumeration>>
+        SEDAN
+        HASHBACK
+    }
+
+    class Rin {
+        <<enumeration>>
+        R16
+        R18
+        R20
+    }
+    
+    class Carro {
+        <<Producto>>
+        ~Carro(TipoCarroceria,Pintura,Motor,Rin,boolean)
+        -TipoCarroceria carroceria
+        -Pintura pintura
+        -Motor motor
+        -Rin rin
+        -boolean tieneGPS
+        +getCarroceria() TipoCarroceria
+        +getPintura() Pintura
+        +getMotor() Motor
+        +getRin() Rin
+        +tieneGPS() boolean
+    }
+
+    class ConfiguradorCarro {
+        <<ConcreteBuilder>>
+        -TipoCarroceria carroceria
+        -Pintura pintura
+        -Motor motor
+        -Rin rin
+        -boolean tieneGPS = false
+        +configurarCarroceria(TipoCarroceria) void
+        +configurarPintura(Pintura) void
+        +configurarRin(Rin) void
+        +configurarMotor(Motor) void
+        +agregarGPS(boolean) void
+        +resetearConfiguracion() void
+        +confirmarCarro() Carro
+        
+    }
+
+    class IConfiguradorCarro {
+        <<interface>>
+        +configurarCarroceria(TipoCarroceria) void
+        +configurarPintura(Pintura) void
+        +configurarRin(Rin) void
+        +configurarMotor(Motor) void
+        +agregarGPS(boolean) void
+        +resetearConfiguracion() void
+        +confirmarCarro() Carro
+    }
+
+    class PlataformaConfiguracion {
+        <<Director>>
+        -ConfiguradorCarro configurador
+        +PlataformaConfiguracion(ConfiguradorCarro)
+        +configurarCarroEconomico() Carro
+        +configurarCarroGamaMedia() Carro
+        +configurarCarroGamaAlta() Carro
+        +configuradorPersonalizado() ConfiguradorCarro
+    }
+    
+    class Main {
+        <<Cliente>>
+        +main(String[] args)$ void
+        
+    }
+
+    Carro --> Motor
+    Carro --> Pintura
+    Carro --> TipoCarroceria 
+    Carro --> Rin
+    
+    ConfiguradorCarro ..|> IConfiguradorCarro 
+    ConfiguradorCarro ..> Carro 
+    PlataformaConfiguracion o-- ConfiguradorCarro : crea
+    
+    Main ..> ConfiguradorCarro
+    Main ..> PlataformaConfiguracion
+
+
+```

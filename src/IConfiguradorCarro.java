@@ -11,4 +11,6 @@ public interface IConfiguradorCarro {
     void configurarRin(Carro.Rin rin);
     void configurarMotor(Carro.Motor motor);
     void agregarGPS(boolean agregar);
+    void resetearConfiguracion();
+    Carro confirmarCarro();
 }

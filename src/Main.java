@@ -24,7 +24,7 @@ public class Main {
          configuradorPersonalizado.agregarGPS(true);
          configuradorPersonalizado.configurarCarroceria(Carro.TipoCarroceria.HASHBACK);
          Carro carroPersonalizado = configuradorPersonalizado.confirmarCarro();
-         System.out.println("El usuario configuró un carro personalizado: " + carroGamaAlta);
+         System.out.println("El usuario configuró un carro personalizado: " + carroPersonalizado);
 
          //El usuario no puede modificar las variables del carro (Ya que fueron declaradas como private) lo cuál cumple con el requisito de
          //"una vez creado el objeto, las variables no se pueden modificar"

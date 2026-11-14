@@ -39,6 +39,7 @@ public class ConfiguradorCarro implements IConfiguradorCarro {
         this.carroceria = carroceria;
     }
 
+    @Override
     public void resetearConfiguracion() {
         this.carroceria = null;
         this.pintura = null;
@@ -47,6 +48,7 @@ public class ConfiguradorCarro implements IConfiguradorCarro {
         this.tieneGPS = false;
     }
 
+    @Override
     public Carro confirmarCarro() {
         return new Carro(this.carroceria, this.pintura, this.motor, this.rin, this.tieneGPS);
     }
